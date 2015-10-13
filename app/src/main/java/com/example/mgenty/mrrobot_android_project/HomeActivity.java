@@ -20,6 +20,8 @@ import com.firebase.client.FirebaseError;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.mgenty.mrrobot_android_project.Crypto.TestCrypto;
+
 public class HomeActivity extends AppCompatActivity implements HomeFragment.HomeListener, LoginFragment.LoginListener, RegisterFragment.RegisterListener{
     private static final String TAG = "HomeActivity";
     private Firebase mFirebaseRef;
@@ -41,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
                 .beginTransaction()
                 .add(R.id.homeContainer, new HomeFragment())
                 .commit();
-
+        TestCrypto();
     }
 
     @Override
