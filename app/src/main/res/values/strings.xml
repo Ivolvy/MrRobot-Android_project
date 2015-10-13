@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">MrRobot-Android_project</string>
-    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email address</string>
+    <string name="user.name">Name</string>
+    <string name="user.password">Password</string>
+    <string name="home.menu.login">Login page</string>
+    <string name="home.menu.register">Register page</string>
+    <string name="home.screen">Home screen</string>
+    <string name="user.your.name">Your name</string>
+    <string name="user.your.password">Your Password</string>
+    <string name="user.your.email">Your Email</string>
 </resources>

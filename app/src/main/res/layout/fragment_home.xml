@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mgenty.userinterface.user.HomeFragment">
+    tools:context="com.example.mgenty.mrrobot_android_project.user.HomeFragment">
 
 
     <TextView

@@ -3,7 +3,7 @@
     android:id="@+id/loginFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mgenty.userinterface.user.LoginFragment">
+    tools:context="com.example.mgenty.mrrobot_android_project.user.LoginFragment">
 
 
     <android.support.design.widget.TextInputLayout
