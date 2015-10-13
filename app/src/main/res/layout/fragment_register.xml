@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registerFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mgenty.userinterface.user.RegisterFragment">
+
+    <EditText
+        android:id="@+id/loginRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/user.your.name"
+        tools:text="@string/user.name" />
+
+    <EditText
+        android:id="@+id/emailRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:ems="10"
+        tools:text="@string/email"
+        android:hint="@string/user.your.email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/passwordRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailRegister"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:ems="10"
+        tools:text="@string/user.password"
+        android:hint="@string/user.your.password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/sendRegisterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="34dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Send" />
+</RelativeLayout>

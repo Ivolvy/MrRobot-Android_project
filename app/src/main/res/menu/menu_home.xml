@@ -1,6 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".HomeActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mgenty.myapplication.MainActivity">
+    <item
+        android:title="@string/home.menu.login"
+        android:id="@+id/menuHomeLoginItem"/>
+    <item
+        android:title="@string/home.menu.register"
+        android:id="@+id/menuHomeRegisterItem"/>
 </menu>
