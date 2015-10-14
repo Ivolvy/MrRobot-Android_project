@@ -14,6 +14,7 @@ import android.view.View;
 import com.example.mgenty.mrrobot_android_project.chat.ChatFragment;
 import com.example.mgenty.mrrobot_android_project.chat.ReceivedMessageFragment;
 import com.example.mgenty.mrrobot_android_project.chat.SendMessageFragment;
+import com.example.mgenty.mrrobot_android_project.user.User;
 import com.example.mgenty.mrrobot_android_project.user.UserFragment;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -92,7 +93,11 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
         Log.d(TAG, "onSendMessageClicked in Activity");
 
         Map<String, String> messages = new HashMap<String, String>();
-        messages.put("sender", "moi");
+
+        //retrieve the current User
+        User user = HomeActivity.getUser();
+
+        messages.put("sender", user.getName());
         messages.put("receiver", "lui");
         messages.put("message", message);
         mFirebaseRef.child("messages").push().setValue(messages);

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.example.mgenty.mrrobot_android_project.home.HomeFragment;
 import com.example.mgenty.mrrobot_android_project.user.LoginFragment;
 import com.example.mgenty.mrrobot_android_project.user.RegisterFragment;
+import com.example.mgenty.mrrobot_android_project.user.User;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -23,6 +24,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
     public static final String EXTRA_USER_ID = "com.example.mgenty.mrrobot_android_project.EXTRA_USER_ID";
     private Firebase mFirebaseRef;
     private Toolbar mToolbar;
+    private static User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,11 +123,15 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
             public void onSuccess(Map<String, Object> result) {
                 System.out.println("Successfully created user account with uid: " + result.get("uid"));
 
-                Map<String, String> userAccount = new HashMap<String, String>();
-                userAccount.put("name", mName);
-                userAccount.put("email", mEmail);
-                userAccount.put("password", mPassword);
-                mFirebaseRef.child("users").child((String) result.get("uid")).setValue(userAccount);
+//                Map<String, String> userAccount = new HashMap<String, String>();
+//                userAccount.put("name", mName);
+//                userAccount.put("email", mEmail);
+//                userAccount.put("password", mPassword);
+//                mFirebaseRef.child("users").child((String) result.get("uid")).setValue(userAccount);
+
+                Firebase userRef = mFirebaseRef.child("users").child(result.get("uid").toString());
+                user = new User(mName, mEmail, mPassword);
+                userRef.setValue(user);
 
                 logUser(mEmail, mPassword);
             }
@@ -136,5 +142,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
             }
         });
     }
+
+    public static User getUser(){
+        return user;
+    }
+
 
 }
