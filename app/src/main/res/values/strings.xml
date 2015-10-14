@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">MrRobot-Android_project</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email">Email address</string>
     <string name="user.name">Name</string>
     <string name="user.password">Password</string>
@@ -16,4 +14,9 @@
     <string name="title_activity_chat">ChatActivity</string>
     <string name="chat.screen.title">Chat screen</string>
     <string name="user.screen.title">User screen</string>
+    <string name="message.to.send">Message to send</string>
+    <string name="send.message">Send Message</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

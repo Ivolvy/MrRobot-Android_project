@@ -12,14 +12,28 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.mgenty.mrrobot_android_project.chat.ChatFragment;
+import com.example.mgenty.mrrobot_android_project.chat.ReceivedMessageFragment;
+import com.example.mgenty.mrrobot_android_project.chat.SendMessageFragment;
 import com.example.mgenty.mrrobot_android_project.user.UserFragment;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
-public class ChatActivity extends AppCompatActivity implements ChatFragment.ChatListener{
+import java.util.HashMap;
+import java.util.Map;
+
+public class ChatActivity extends AppCompatActivity implements ChatFragment.ChatListener, SendMessageFragment.SendListener, ReceivedMessageFragment.ReceivedListener{
     private static final String TAG = "ChatActivity";
+    private Firebase mFirebaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Firebase.setAndroidContext(this);
+        mFirebaseRef = new Firebase("https://androidmrrobot.firebaseio.com/");
+
         setContentView(R.layout.activity_chat);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,6 +75,28 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home_connected, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+
+    public void onAccessSendMessageClicked() {
+        Log.d(TAG, "onAccessMessageClicked in Activity");
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.chatContainer, new SendMessageFragment())
+                .commit();
+
+    }
+
+    public void onSendMessageClicked(String message) {
+        Log.d(TAG, "onSendMessageClicked in Activity");
+
+        Map<String, String> messages = new HashMap<String, String>();
+        messages.put("sender", "moi");
+        messages.put("receiver", "lui");
+        messages.put("message", message);
+        mFirebaseRef.child("messages").push().setValue(messages);
+
     }
 
 }

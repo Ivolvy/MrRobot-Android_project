@@ -19,11 +19,13 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChatFragment extends Fragment {
-    private static final String TAG = "ChatFragment";
-    private ChatListener mListener;
+public class SendMessageFragment extends Fragment {
+    private static final String TAG = "SendFragment";
+    private SendListener mListener;
 
-    public ChatFragment() {
+    @Bind(R.id.messageToSend) TextView mMessageToSend;
+
+    public SendMessageFragment() {
         // Required empty public constructor
     }
 
@@ -31,9 +33,9 @@ public class ChatFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mListener = (ChatListener) context;
+            mListener = (SendListener) context;
         } catch (ClassCastException exception) {
-            throw new ClassCastException(context.toString() + "must implement ChatFragment.ChatListener");
+            throw new ClassCastException(context.toString() + "must implement SendMessageFragment.SendListener");
         }
 
     }
@@ -42,28 +44,20 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_send_message, container, false);
         ButterKnife.bind(this, view);
 
         return view;
     }
 
-    @Override
-    public void onDestroyView(){
-        ButterKnife.unbind(this);
-        mListener = null;
-
-        super.onDestroyView();
-    }
-
-    @OnClick(R.id.accesSendMessageButton)
+    @OnClick(R.id.buttonSendMessage)
     void onClick(View v){
-        Log.d(TAG, "onClickAccessMessageListener");
-        mListener.onAccessSendMessageClicked();
+        Log.d(TAG, "onClickSendMessageListener");
+        mListener.onSendMessageClicked(mMessageToSend.getText().toString());
     }
 
-    public interface ChatListener {
-        void onAccessSendMessageClicked();
+    public interface SendListener {
+        void onSendMessageClicked(String message);
     }
 
 }

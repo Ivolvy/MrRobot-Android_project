@@ -59,6 +59,13 @@ public class UserFragment extends Fragment {
         return mView;
     }
 
+    @Override
+    public void onDestroyView(){
+        ButterKnife.unbind(this);
+        mListener = null;
+
+        super.onDestroyView();
+    }
 
     public void updateUserInformation(String userName, String userEmail) {
 
