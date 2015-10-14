@@ -1,5 +1,6 @@
 package com.example.mgenty.mrrobot_android_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,7 @@ import static com.example.mgenty.mrrobot_android_project.Crypto.TestCrypto;
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.HomeListener, LoginFragment.LoginListener, RegisterFragment.RegisterListener{
     private static final String TAG = "HomeActivity";
+    public static final String EXTRA_USER_ID = "com.example.mgenty.mrrobot_android_project.EXTRA_USER_ID";
     private Firebase mFirebaseRef;
 
     @Override
@@ -38,12 +40,12 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.homeContainer, new HomeFragment())
-                .commit();
-        TestCrypto();
+        if(savedInstanceState == null){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.homeContainer, new HomeFragment())
+                    .commit();
+        }
     }
 
     @Override
@@ -97,6 +99,12 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
             @Override
             public void onAuthenticated(AuthData authData) {
                 System.out.println("User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
+
+                //launch the userActivity
+                Intent intent = new Intent(HomeActivity.this, UserActivity.class);
+                String userId = authData.getUid();
+                intent.putExtra(EXTRA_USER_ID, userId);
+                startActivity(intent);
             }
 
             @Override

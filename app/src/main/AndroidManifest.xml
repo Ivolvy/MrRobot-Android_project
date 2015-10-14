@@ -10,12 +10,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".HomeActivity">
+        <activity android:name=".HomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".UserActivity"
+            android:parentActivityName="com.example.mgenty.mrrobot_android_project.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACITIVY"
+                android:value="com.example.mgenty.mrrobot_android_project.HomeActivity"/>
         </activity>
     </application>
 

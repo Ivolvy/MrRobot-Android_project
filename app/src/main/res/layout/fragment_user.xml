@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/userFragment"
+    tools:context="com.example.mgenty.mrrobot_android_project.user.UserFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/user.screen"
+        android:id="@+id/userScreen"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="@string/user.name"
+        android:id="@+id/userName"
+        android:layout_below="@+id/userScreen"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="118dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="@string/email"
+        android:id="@+id/userEmail"
+        android:layout_below="@+id/userName"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
