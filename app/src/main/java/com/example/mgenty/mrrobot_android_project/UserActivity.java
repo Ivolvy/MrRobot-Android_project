@@ -4,11 +4,15 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.mgenty.mrrobot_android_project.chat.ChatFragment;
 import com.example.mgenty.mrrobot_android_project.user.LoginFragment;
+import com.example.mgenty.mrrobot_android_project.user.RegisterFragment;
 import com.example.mgenty.mrrobot_android_project.user.UserFragment;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -33,7 +37,10 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
 
         setContentView(R.layout.activity_user);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        //load UserFragment
         userFragment = new UserFragment();
 
         if(savedInstanceState == null){
@@ -46,8 +53,8 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
         Intent intent = getIntent();
         String userId = intent.getStringExtra(HomeActivity.EXTRA_USER_ID);
 
+        //load user information in order to fill the interface
         loadUserInformations(userId);
-
     }
 
 
@@ -69,11 +76,31 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
         });
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuHomeConnectedUserItem) {
+            //login clicked
+            Log.d(TAG, "onUserScreenClicked in Activity");
+
+            return true;
+        } else if (item.getItemId() == R.id.menuHomeConnectedChatItem) {
+            //register clicked
+            Log.d(TAG, "onChatClicked in Activity");
+
+            //launch the chatActivity
+            Intent intent = new Intent(UserActivity.this, ChatActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home_connected, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 }

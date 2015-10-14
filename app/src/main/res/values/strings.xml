@@ -13,4 +13,7 @@
     <string name="user.your.password">Your Password</string>
     <string name="user.your.email">Your Email</string>
     <string name="user.screen">User Screen</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="chat.screen.title">Chat screen</string>
+    <string name="user.screen.title">User screen</string>
 </resources>
