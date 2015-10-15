@@ -2,24 +2,18 @@ package com.example.mgenty.mrrobot_android_project;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.mgenty.mrrobot_android_project.chat.ChatFragment;
 import com.example.mgenty.mrrobot_android_project.chat.ReceivedMessageFragment;
 import com.example.mgenty.mrrobot_android_project.chat.SendMessageFragment;
+import com.example.mgenty.mrrobot_android_project.communication.CommunicationActivity;
 import com.example.mgenty.mrrobot_android_project.user.User;
-import com.example.mgenty.mrrobot_android_project.user.UserFragment;
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,9 +50,7 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
             //login clicked
             Log.d(TAG, "onUserScreenClicked in Activity");
 
-            //launch the chatActivity
-            Intent intent = new Intent(ChatActivity.this, UserActivity.class);
-            startActivity(intent);
+
 
             return true;
         } else if (item.getItemId() == R.id.menuHomeConnectedChatItem) {
@@ -82,10 +74,15 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
     public void onAccessSendMessageClicked() {
         Log.d(TAG, "onAccessMessageClicked in Activity");
 
-        getSupportFragmentManager()
+        //launch the chatActivity
+        Intent intent = new Intent(ChatActivity.this, CommunicationActivity.class);
+        startActivity(intent);
+
+        //old chat method
+     /*   getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.chatContainer, new SendMessageFragment())
-                .commit();
+                .commit();*/
 
     }
 
