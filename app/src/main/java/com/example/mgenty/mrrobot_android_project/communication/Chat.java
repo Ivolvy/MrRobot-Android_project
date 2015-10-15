@@ -1,9 +1,5 @@
 package com.example.mgenty.mrrobot_android_project.communication;
 
-/**
- * @author greg
- * @since 6/21/13
- */
 public class Chat {
 
     private String message;
@@ -14,7 +10,7 @@ public class Chat {
     private Chat() {
     }
 
-    public Chat(String message, String author) {
+    public Chat(String author, String message) {
         this.message = message;
         this.author = author;
     }
