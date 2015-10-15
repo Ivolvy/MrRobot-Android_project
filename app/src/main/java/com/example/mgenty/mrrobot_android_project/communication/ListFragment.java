@@ -2,7 +2,6 @@ package com.example.mgenty.mrrobot_android_project.communication;
 
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,22 +9,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mgenty.mrrobot_android_project.R;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -38,12 +36,12 @@ public class ListFragment extends Fragment {
     private ListListener mListener;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<String> mDatas = new ArrayList<>();
+    private ValueEventListener mConnectedListener;
 
     private Firebase mFirebaseRef;
     final String name = "Android User";
+
 
     public ListFragment() {
         // Required empty public constructor
@@ -94,6 +92,23 @@ public class ListFragment extends Fragment {
             }
         });
 
+        // Finally, a little indication of connection status
+        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean connected = (Boolean) dataSnapshot.getValue();
+                if (connected) {
+                    Toast.makeText(getActivity(), "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                // No-op
+            }
+        });
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -107,9 +122,7 @@ public class ListFragment extends Fragment {
         return view;
     }
 
-
     public void loadTexts(){
-
         FirebaseRecyclerViewAdapter<Chat, ChatHolder> adapter = new FirebaseRecyclerViewAdapter<Chat, ChatHolder>(Chat.class, android.R.layout.two_line_list_item, ChatHolder.class, mFirebaseRef) {
             @Override
             public void populateViewHolder(ChatHolder chatView, Chat chat) {
@@ -127,14 +140,15 @@ public class ListFragment extends Fragment {
             }
         };
         mRecyclerView.setAdapter(adapter);
-
     }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
+    }
 
     public interface ListListener {
-
     }
-
 
 }
