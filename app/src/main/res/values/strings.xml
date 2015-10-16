@@ -6,6 +6,7 @@
     <string name="mUser.password">Password</string>
     <string name="home.menu.login">Login page</string>
     <string name="home.menu.register">Register page</string>
+    <string name="home.menu.about">About</string>
     <string name="home.screen">Home screen</string>
     <string name="mUser.your.name">Your name</string>
     <string name="mUser.your.password">Your Password</string>

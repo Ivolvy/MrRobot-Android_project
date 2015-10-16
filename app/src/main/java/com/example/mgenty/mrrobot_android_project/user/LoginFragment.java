@@ -52,7 +52,6 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
-        // Inflate the layout for this fragment
         return view;
     }
 

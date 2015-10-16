@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mgenty.mrrobot_android_project.communication.CommunicationActivity">
     <item
-        android:title="@string/home.menu.login"
-        android:id="@+id/menuHomeLoginItem"/>
+        android:title="@string/home.screen"
+        android:id="@+id/menuHomeScreenItem"/>
     <item
-        android:title="@string/home.menu.register"
-        android:id="@+id/menuHomeRegisterItem"/>
+        android:title="@string/home.menu.about"
+        android:id="@+id/menuHomeAboutItem"/>
 </menu>

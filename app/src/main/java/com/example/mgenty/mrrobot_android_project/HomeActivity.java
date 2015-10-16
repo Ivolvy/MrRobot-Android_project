@@ -47,26 +47,20 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menuHomeLoginItem) {
-            //login clicked
-            Log.d(TAG, "onLoginClicked in Activity");
+        if (item.getItemId() == R.id.menuHomeScreenItem) {
+            //about clicked
+            Log.d(TAG, "onHomeClicked in Activity");
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.homeContainer, new LoginFragment())
+                    .replace(R.id.homeContainer, new HomeFragment())
                     .commit();
 
             return true;
-        } else if (item.getItemId() == R.id.menuHomeRegisterItem) {
-            //register clicked
-            Log.d(TAG, "onRegisterClicked in Activity");
+        } else if (item.getItemId() == R.id.menuHomeAboutItem) {
+            //about clicked
+            Log.d(TAG, "onAboutClicked in Activity");
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.homeContainer, new RegisterFragment())
-                    .commit();
-
-            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -78,6 +72,20 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onPageLoginButtonClicked() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.homeContainer, new LoginFragment())
+                .commit();
+    }
+    @Override
+    public void onPageRegisterButtonClicked() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.homeContainer, new RegisterFragment())
+                .commit();
+    }
 
     @Override
     public void onLoginClicked(CharSequence loginEmail, CharSequence loginPassword) {
