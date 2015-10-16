@@ -23,6 +23,10 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerViewAdapter;
+import com.tozny.crypto.android.AesCbcWithIntegrity;
+
+import static com.example.mgenty.mrrobot_android_project.crypto.Crypto.cipherMessage;
+import static com.example.mgenty.mrrobot_android_project.crypto.Crypto.decipherMessage;
 
 
 /**
@@ -81,7 +85,11 @@ public class ListFragment extends Fragment {
         view.findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Chat chat = new Chat(mUserName, inputText.getText().toString());
+
+                //cipher the message
+                AesCbcWithIntegrity.CipherTextIvMac cryptedMessage = cipherMessage(inputText.getText().toString(), "jpv4");
+                Chat chat = new Chat(mUserName, cryptedMessage);
+
                 mFirebaseRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
@@ -145,7 +153,12 @@ public class ListFragment extends Fragment {
         FirebaseRecyclerViewAdapter<Chat, ChatHolder> adapter = new FirebaseRecyclerViewAdapter<Chat, ChatHolder>(Chat.class, android.R.layout.two_line_list_item, ChatHolder.class, mFirebaseRef) {
             @Override
             public void populateViewHolder(ChatHolder chatView, Chat chat) {
-                chatView.textView.setText(chat.getMessage());
+
+                //retrieve the string message to decrypt
+                AesCbcWithIntegrity.CipherTextIvMac ciphertext = new AesCbcWithIntegrity.CipherTextIvMac(chat.getMessage());
+                String readableMessage = decipherMessage(ciphertext, "jpv4");
+
+                chatView.textView.setText(readableMessage);
                 chatView.textView.setPadding(10, 0, 10, 0);
                 chatView.nameView.setText(chat.getAuthor());
                 chatView.nameView.setPadding(10, 0, 10, 15);

@@ -1,5 +1,9 @@
 package com.example.mgenty.mrrobot_android_project.communication;
 
+import com.tozny.crypto.android.AesCbcWithIntegrity;
+
+import static com.example.mgenty.mrrobot_android_project.crypto.Crypto.decipherMessage;
+
 public class Chat {
 
     private String message;
@@ -10,8 +14,8 @@ public class Chat {
     private Chat() {
     }
 
-    public Chat(String author, String message) {
-        this.message = message;
+    public Chat(String author, AesCbcWithIntegrity.CipherTextIvMac message) {
+        this.message = message.toString();
         this.author = author;
     }
 

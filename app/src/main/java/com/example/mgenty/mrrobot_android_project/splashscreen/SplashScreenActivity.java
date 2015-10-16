@@ -7,6 +7,9 @@ import android.os.Bundle;
 
 import com.example.mgenty.mrrobot_android_project.HomeActivity;
 import com.example.mgenty.mrrobot_android_project.R;
+import com.tozny.crypto.android.AesCbcWithIntegrity;
+
+import static com.example.mgenty.mrrobot_android_project.crypto.Crypto.*;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
