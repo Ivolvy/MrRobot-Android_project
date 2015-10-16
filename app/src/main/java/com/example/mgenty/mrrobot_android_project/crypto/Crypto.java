@@ -58,15 +58,6 @@ public class Crypto {
             if (!decrypted.equals("secret")) throw new AssertionError();
         }*/
 
-        if (keysDecrypt != null) {
-            Log.d(TAG, "AESCrypto is working!"
-                            + "\n keys: " + keysDecrypt.toString()
-                            + "\n keysDecrypt: " + keysDecrypt.toString()
-                            + "\n encrypted: " + encryptedMessage.toString()
-                            + "\n decrypted: " + decrypted
-            );
-        }
-
         return decrypted;
     }
 

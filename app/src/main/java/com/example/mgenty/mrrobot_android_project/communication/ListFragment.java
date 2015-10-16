@@ -2,11 +2,14 @@ package com.example.mgenty.mrrobot_android_project.communication;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.mgenty.mrrobot_android_project.HomeActivity;
 import com.example.mgenty.mrrobot_android_project.R;
+import com.example.mgenty.mrrobot_android_project.crypto.Secret;
 import com.example.mgenty.mrrobot_android_project.user.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -42,6 +46,7 @@ public class ListFragment extends Fragment {
 
     private Firebase mFirebaseRef;
     private String mUserName = "Default";
+    private String mSecretPassword = "";
 
     private FirebaseRecyclerViewAdapter<Chat, ChatHolder> mAdapter;
 
@@ -61,7 +66,7 @@ public class ListFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView(){
+    public void onDestroyView() {
         mListener = null;
 
         super.onDestroyView();
@@ -78,6 +83,9 @@ public class ListFragment extends Fragment {
         User user = HomeActivity.getUser();
         mUserName = user.getName();
 
+        Secret secret = CommunicationActivity.getSecret();
+        mSecretPassword = secret.getPassword();
+
         mFirebaseRef = new Firebase("https://androidmrrobot.firebaseio.com/").child("chat");
 
         final EditText inputText = (EditText) view.findViewById(R.id.messageInput);
@@ -87,7 +95,7 @@ public class ListFragment extends Fragment {
             public void onClick(View v) {
 
                 //cipher the message
-                AesCbcWithIntegrity.CipherTextIvMac cryptedMessage = cipherMessage(inputText.getText().toString(), "jpv4");
+                AesCbcWithIntegrity.CipherTextIvMac cryptedMessage = cipherMessage(inputText.getText().toString(), mSecretPassword);
                 Chat chat = new Chat(mUserName, cryptedMessage);
 
                 mFirebaseRef.push().setValue(chat, new Firebase.CompletionListener() {
@@ -130,13 +138,15 @@ public class ListFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         setChangeTextsEvent();
+
         loadTexts();
 
         return view;
     }
 
+
     //set to bottom the scrollbar each time a value is added and on initialization
-    public void setChangeTextsEvent(){
+    public void setChangeTextsEvent() {
         mFirebaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -149,14 +159,15 @@ public class ListFragment extends Fragment {
         });
     }
 
-    public void loadTexts(){
+    /*Load all the texts in database*/
+    public void loadTexts() {
         FirebaseRecyclerViewAdapter<Chat, ChatHolder> adapter = new FirebaseRecyclerViewAdapter<Chat, ChatHolder>(Chat.class, android.R.layout.two_line_list_item, ChatHolder.class, mFirebaseRef) {
             @Override
             public void populateViewHolder(ChatHolder chatView, Chat chat) {
 
                 //retrieve the string message to decrypt
                 AesCbcWithIntegrity.CipherTextIvMac ciphertext = new AesCbcWithIntegrity.CipherTextIvMac(chat.getMessage());
-                String readableMessage = decipherMessage(ciphertext, "jpv4");
+                String readableMessage = decipherMessage(ciphertext, mSecretPassword);
 
                 chatView.textView.setText(readableMessage);
                 chatView.textView.setPadding(10, 0, 10, 0);
