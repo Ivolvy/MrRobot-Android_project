@@ -50,8 +50,6 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
             //login clicked
             Log.d(TAG, "onUserScreenClicked in Activity");
 
-
-
             return true;
         } else if (item.getItemId() == R.id.menuHomeConnectedChatItem) {
             //register clicked

@@ -3,7 +3,7 @@
     android:id="@+id/loginFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mgenty.mrrobot_android_project.user.LoginFragment">
+    tools:context="com.example.mgenty.mrrobot_android_project.mUser.LoginFragment">
 
 
     <android.support.design.widget.TextInputLayout
@@ -22,7 +22,7 @@
         android:layout_marginTop="71dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="@string/user.your.name"
+        android:hint="@string/mUser.your.name"
         tools:text="Name" />
 
     </android.support.design.widget.TextInputLayout>
@@ -41,8 +41,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="67dp"
         android:ems="10"
-        tools:text="@string/user.password"
-        android:hint="@string/user.your.password"
+        tools:text="@string/mUser.password"
+        android:hint="@string/mUser.your.password"
         android:inputType="textPassword" />
 
     </android.support.design.widget.TextInputLayout>

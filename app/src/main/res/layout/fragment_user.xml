@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/userFragment"
-    tools:context="com.example.mgenty.mrrobot_android_project.user.UserFragment">
+    tools:context="com.example.mgenty.mrrobot_android_project.mUser.UserFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/user.screen"
+        android:text="@string/mUser.screen"
         android:id="@+id/userScreen"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="@string/user.name"
+        tools:text="@string/mUser.name"
         android:id="@+id/userName"
         android:layout_below="@+id/userScreen"
         android:layout_centerHorizontal="true"

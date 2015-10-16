@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mgenty.mrrobot_android_project.communication.CommunicationActivity">
     <item
-        android:title="@string/user.screen.title"
+        android:title="@string/mUser.screen.title"
         android:id="@+id/menuHomeConnectedUserItem"/>
     <item
         android:title="@string/chat.screen.title"

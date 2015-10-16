@@ -15,17 +15,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mgenty.mrrobot_android_project.HomeActivity;
 import com.example.mgenty.mrrobot_android_project.R;
+import com.example.mgenty.mrrobot_android_project.user.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseRecyclerViewAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.ButterKnife;
 
 
 /**
@@ -40,8 +37,9 @@ public class ListFragment extends Fragment {
     private ValueEventListener mConnectedListener;
 
     private Firebase mFirebaseRef;
-    final String name = "Android User";
+    private String mUserName = "Default";
 
+    private FirebaseRecyclerViewAdapter<Chat, ChatHolder> mAdapter;
 
     public ListFragment() {
         // Required empty public constructor
@@ -72,6 +70,10 @@ public class ListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
 
+        //retrieve the current User
+        User user = HomeActivity.getUser();
+        mUserName = user.getName();
+
         mFirebaseRef = new Firebase("https://androidmrrobot.firebaseio.com/").child("chat");
 
         final EditText inputText = (EditText) view.findViewById(R.id.messageInput);
@@ -79,15 +81,17 @@ public class ListFragment extends Fragment {
         view.findViewById(R.id.sendButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Chat chat = new Chat(name, inputText.getText().toString());
+                Chat chat = new Chat(mUserName, inputText.getText().toString());
                 mFirebaseRef.push().setValue(chat, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1); //set to bottom the scrollbar
                         if (firebaseError != null) {
                             Log.e("FirebaseUI.chat", firebaseError.toString());
                         }
                     }
                 });
+
                 inputText.setText("");
             }
         });
@@ -117,9 +121,24 @@ public class ListFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        setChangeTextsEvent();
         loadTexts();
 
         return view;
+    }
+
+    //set to bottom the scrollbar each time a value is added and on initialization
+    public void setChangeTextsEvent(){
+        mFirebaseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
     }
 
     public void loadTexts(){
@@ -130,7 +149,7 @@ public class ListFragment extends Fragment {
                 chatView.textView.setPadding(10, 0, 10, 0);
                 chatView.nameView.setText(chat.getAuthor());
                 chatView.nameView.setPadding(10, 0, 10, 15);
-                if (chat.getAuthor().equals(name)) {
+                if (chat.getAuthor().equals(mUserName)) {
                     chatView.textView.setGravity(Gravity.END);
                     chatView.nameView.setGravity(Gravity.END);
                     chatView.nameView.setTextColor(Color.parseColor("#8BC34A"));
@@ -139,8 +158,10 @@ public class ListFragment extends Fragment {
                 }
             }
         };
+        mAdapter = adapter;
         mRecyclerView.setAdapter(adapter);
     }
+
 
     @Override
     public void onStop() {

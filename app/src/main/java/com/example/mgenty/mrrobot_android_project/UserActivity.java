@@ -1,6 +1,5 @@
 package com.example.mgenty.mrrobot_android_project;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,19 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.example.mgenty.mrrobot_android_project.chat.ChatFragment;
-import com.example.mgenty.mrrobot_android_project.user.LoginFragment;
-import com.example.mgenty.mrrobot_android_project.user.RegisterFragment;
+import com.example.mgenty.mrrobot_android_project.user.User;
 import com.example.mgenty.mrrobot_android_project.user.UserFragment;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class UserActivity extends AppCompatActivity implements UserFragment.UserListener{
     private static final String TAG = "UserActivity";
@@ -58,12 +51,19 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
     }
 
 
-    public void loadUserInformations(String userId){
+    public void loadUserInformations(final String userId){
         mFirebaseRef.child("users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String userName = dataSnapshot.child("name").getValue().toString();
-                String userEmail = dataSnapshot.child("email").getValue().toString();
+
+                //retrieve the values in firebase to User class
+                User user = dataSnapshot.getValue(User.class);
+                HomeActivity.setUser(user);
+                //String userName = dataSnapshot.child("name").getValue().toString();
+                //String userEmail = dataSnapshot.child("email").getValue().toString();
+
+                String userName = user.getName();
+                String userEmail = user.getEMail();
 
                 //call method in UserFragment
                 userFragment.updateUserInformation(userName, userEmail);

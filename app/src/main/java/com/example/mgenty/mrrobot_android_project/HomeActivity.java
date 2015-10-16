@@ -16,7 +16,6 @@ import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity implements HomeFragment.HomeListener, LoginFragment.LoginListener, RegisterFragment.RegisterListener{
@@ -24,7 +23,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
     public static final String EXTRA_USER_ID = "com.example.mgenty.mrrobot_android_project.EXTRA_USER_ID";
     private Firebase mFirebaseRef;
     private Toolbar mToolbar;
-    private static User user;
+    private static User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
         mFirebaseRef.createUser(mEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
-                System.out.println("Successfully created user account with uid: " + result.get("uid"));
+                System.out.println("Successfully created mUser account with uid: " + result.get("uid"));
 
 //                Map<String, String> userAccount = new HashMap<String, String>();
 //                userAccount.put("name", mName);
@@ -130,8 +129,8 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
 //                mFirebaseRef.child("users").child((String) result.get("uid")).setValue(userAccount);
 
                 Firebase userRef = mFirebaseRef.child("users").child(result.get("uid").toString());
-                user = new User(mName, mEmail, mPassword);
-                userRef.setValue(user);
+                mUser = new User(mName, mEmail, mPassword);
+                userRef.setValue(mUser);
 
                 logUser(mEmail, mPassword);
             }
@@ -144,7 +143,10 @@ public class HomeActivity extends AppCompatActivity implements HomeFragment.Home
     }
 
     public static User getUser(){
-        return user;
+        return mUser;
+    }
+    public static void setUser(User user){
+        mUser = user;
     }
 
 

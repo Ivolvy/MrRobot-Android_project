@@ -4,14 +4,14 @@ package com.example.mgenty.mrrobot_android_project.user;
 public class User {
     private String id;
     private String name;
-    private String eMail;
+    private String email;
     private String password;
 
     public User(){}
 
-    public User(String name, String eMail, String password){
+    public User(String name, String email, String password){
         this.name = name;
-        this.eMail = eMail;
+        this.email = email;
         this.password = password;
     }
 
@@ -22,7 +22,7 @@ public class User {
         return name;
     }
     public String getEMail(){
-        return eMail;
+        return email;
     }
     public String getPassword(){
         return password;
