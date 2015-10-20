@@ -1,12 +1,20 @@
 package com.example.mgenty.mrrobot_android_project;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 
 import com.example.mgenty.mrrobot_android_project.user.User;
 import com.example.mgenty.mrrobot_android_project.user.UserFragment;
@@ -15,10 +23,12 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-public class UserActivity extends AppCompatActivity implements UserFragment.UserListener{
+public class UserActivity extends AppCompatActivity implements UserFragment.UserListener, NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "UserActivity";
+    public static final String EXTRA_USER_ID = "com.example.mgenty.mrrobot_android_project.EXTRA_USER_ID";
     private Firebase mFirebaseRef;
     private UserFragment userFragment;
+    private String userId;
 
 
     @Override
@@ -44,12 +54,40 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
         }
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra(HomeActivity.EXTRA_USER_ID);
+        userId = intent.getStringExtra(HomeActivity.EXTRA_USER_ID);
 
         //load user information in order to fill the interface
         loadUserInformations(userId);
+
+
+      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+*/
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     public void loadUserInformations(final String userId){
         mFirebaseRef.child("users").child(userId).addValueEventListener(new ValueEventListener() {
@@ -78,6 +116,8 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
         if (item.getItemId() == R.id.menuHomeConnectedUserItem) {
             //login clicked
             Log.d(TAG, "onUserScreenClicked in Activity");
@@ -89,6 +129,7 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
 
             //launch the chatActivity
             Intent intent = new Intent(UserActivity.this, ChatActivity.class);
+            intent.putExtra(EXTRA_USER_ID, userId);
             startActivity(intent);
 
             return true;
@@ -101,6 +142,34 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home_connected, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_communication) {
+            Log.d(TAG, "onChatClicked in SlideMenu");
+            //launch the chatActivity
+            Intent intent = new Intent(UserActivity.this, ChatActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_sendMessages) {
+
+        } else if (id == R.id.nav_receiveMessages) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_userAccount) {
+            onBackPressed();
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 }

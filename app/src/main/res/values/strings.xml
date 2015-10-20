@@ -7,7 +7,7 @@
     <string name="home.menu.login">Login page</string>
     <string name="home.menu.register">Register page</string>
     <string name="home.menu.about">About</string>
-    <string name="home.screen">Home screen</string>
+    <string name="home.screen">HACKERS CORP</string>
     <string name="mUser.your.name">Your name</string>
     <string name="mUser.your.password">Your Password</string>
     <string name="mUser.your.email">Your Email</string>
@@ -20,4 +20,11 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="slide_menu_subtitle">Be invisible</string>
 </resources>
