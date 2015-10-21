@@ -3,9 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mgenty.mrrobot_android_project.communication.CommunicationActivity">
     <item
-        android:title="@string/mUser.screen.title"
-        android:id="@+id/menuHomeConnectedUserItem"/>
+        android:title="@string/home.screen"
+        android:id="@+id/menuHomeScreenItem"/>
     <item
-        android:title="@string/chat.screen.title"
-        android:id="@+id/menuHomeConnectedChatItem"/>
+        android:title="@string/home.menu.about"
+        android:id="@+id/menuHomeAboutItem"/>
+    <item
+        android:title="Log out"
+        android:id="@+id/menuHomeConnectedLogOutItem"/>
 </menu>

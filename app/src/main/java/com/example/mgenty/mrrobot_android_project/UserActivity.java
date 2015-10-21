@@ -116,21 +116,20 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (item.getItemId() == R.id.menuHomeConnectedUserItem) {
+        if (item.getItemId() == R.id.menuHomeScreenItem) {
             //login clicked
-            Log.d(TAG, "onUserScreenClicked in Activity");
+            Log.d(TAG, "onHomeScreenClicked in Activity");
 
             return true;
-        } else if (item.getItemId() == R.id.menuHomeConnectedChatItem) {
+        } else if (item.getItemId() == R.id.menuHomeAboutItem) {
             //register clicked
-            Log.d(TAG, "onChatClicked in Activity");
+            Log.d(TAG, "onAboutClicked in Activity");
 
-            //launch the chatActivity
-            Intent intent = new Intent(UserActivity.this, ChatActivity.class);
-            intent.putExtra(EXTRA_USER_ID, userId);
-            startActivity(intent);
+            return true;
+        }
+        else if (item.getItemId() == R.id.menuHomeConnectedLogOutItem) {
+            //register clicked
+            Log.d(TAG, "onLogOutClicked in Activity");
 
             return true;
         }
