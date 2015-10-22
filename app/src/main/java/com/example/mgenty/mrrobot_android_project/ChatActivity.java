@@ -73,15 +73,15 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
 
             return true;
         } else if (item.getItemId() == R.id.menuHomeAboutItem) {
-            //register clicked
             Log.d(TAG, "onAboutClicked in Activity");
 
             return true;
         }
         else if (item.getItemId() == R.id.menuHomeConnectedLogOutItem) {
-            //register clicked
             Log.d(TAG, "onLogOutClicked in Activity");
-
+            mFirebaseRef.unauth();
+            Intent intent = new Intent(ChatActivity.this, HomeActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -110,8 +110,10 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
 
         } else if (id == R.id.nav_userAccount) {
             onBackPressed();
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_disconnect) {
+            mFirebaseRef.unauth();
+            Intent intent = new Intent(ChatActivity.this, HomeActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -9,6 +9,6 @@
         android:title="@string/home.menu.about"
         android:id="@+id/menuHomeAboutItem"/>
     <item
-        android:title="Log out"
+        android:title="Disconnect"
         android:id="@+id/menuHomeConnectedLogOutItem"/>
 </menu>
