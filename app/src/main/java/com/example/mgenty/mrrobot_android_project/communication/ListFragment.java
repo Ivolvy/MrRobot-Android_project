@@ -48,6 +48,8 @@ public class ListFragment extends Fragment {
     private String mUserName = "Default";
     private String mSecretPassword = "";
 
+    private static String chatMode = "";
+
     private FirebaseRecyclerViewAdapter<Chat, ChatHolder> mAdapter;
 
     public ListFragment() {
@@ -78,6 +80,9 @@ public class ListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
+
+        //retrieve chatMode (chat, sent messages, received messages)
+        chatMode = CommunicationActivity.chatMode;
 
         //retrieve the current User
         User user = HomeActivity.getUser();
@@ -165,20 +170,14 @@ public class ListFragment extends Fragment {
             @Override
             public void populateViewHolder(ChatHolder chatView, Chat chat) {
 
-                //retrieve the string message to decrypt
-                AesCbcWithIntegrity.CipherTextIvMac ciphertext = new AesCbcWithIntegrity.CipherTextIvMac(chat.getMessage());
-                String readableMessage = decipherMessage(ciphertext, mSecretPassword);
-
-                chatView.textView.setText(readableMessage);
-                chatView.textView.setPadding(10, 0, 10, 0);
-                chatView.nameView.setText(chat.getAuthor());
-                chatView.nameView.setPadding(10, 0, 10, 15);
-                if (chat.getAuthor().equals(mUserName)) {
-                    chatView.textView.setGravity(Gravity.END);
-                    chatView.nameView.setGravity(Gravity.END);
-                    chatView.nameView.setTextColor(Color.parseColor("#8BC34A"));
-                } else {
-                    chatView.nameView.setTextColor(Color.parseColor("#00BCD4"));
+                if(chatMode.equals("0")) {
+                   writeText(chatView, chat);
+                }
+                else if(chat.getAuthor().equals(mUserName) && chatMode.equals("1")) {
+                    writeText(chatView, chat);
+                }
+                else if(!chat.getAuthor().equals(mUserName) && chatMode.equals("2")) {
+                    writeText(chatView, chat);
                 }
             }
         };
@@ -186,6 +185,24 @@ public class ListFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
     }
 
+    //write text in the chat
+    public void writeText(ChatHolder chatView, Chat chat){
+        //retrieve the string message to decrypt
+        AesCbcWithIntegrity.CipherTextIvMac ciphertext = new AesCbcWithIntegrity.CipherTextIvMac(chat.getMessage());
+        String readableMessage = decipherMessage(ciphertext, mSecretPassword);
+
+        chatView.textView.setText(readableMessage);
+        chatView.textView.setPadding(10, 0, 10, 0);
+        chatView.nameView.setText(chat.getAuthor());
+        chatView.nameView.setPadding(10, 0, 10, 15);
+        if (chat.getAuthor().equals(mUserName)) {
+            chatView.textView.setGravity(Gravity.END);
+            chatView.nameView.setGravity(Gravity.END);
+            chatView.nameView.setTextColor(Color.parseColor("#8BC34A"));
+        } else {
+            chatView.nameView.setTextColor(Color.parseColor("#00BCD4"));
+        }
+    }
 
     @Override
     public void onStop() {

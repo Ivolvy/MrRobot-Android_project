@@ -1,12 +1,15 @@
 package com.example.mgenty.mrrobot_android_project.communication;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.widget.EditText;
 
+import com.example.mgenty.mrrobot_android_project.ChatActivity;
+import com.example.mgenty.mrrobot_android_project.HomeActivity;
 import com.example.mgenty.mrrobot_android_project.R;
 import com.example.mgenty.mrrobot_android_project.crypto.Secret;
 
@@ -15,6 +18,7 @@ public class CommunicationActivity extends AppCompatActivity implements ListFrag
     private ListFragment listFragment;
 
     private String mPassword = "";
+    protected static String chatMode ="";
 
     private Bundle mSavedInstanceState;
 
@@ -24,6 +28,10 @@ public class CommunicationActivity extends AppCompatActivity implements ListFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSavedInstanceState = savedInstanceState;
+
+        Intent intent = getIntent();
+        chatMode = intent.getStringExtra(ChatActivity.EXTRA_MODE);
+
         setContentView(R.layout.activity_communication);
 
         enterPassword();

@@ -56,14 +56,26 @@ public class ChatFragment extends Fragment {
         super.onDestroyView();
     }
 
-    @OnClick(R.id.accesSendMessageButton)
-    void onClick(View v){
+    @OnClick(R.id.accessChatMessageButton)
+    void onClickChat(View v){
         Log.d(TAG, "onClickAccessMessageListener");
-        mListener.onAccessSendMessageClicked();
+        mListener.onAccessChatMessageClicked("0");
+    }
+
+    @OnClick(R.id.accessSendMessageButton)
+    void onClickSend(View v){
+        Log.d(TAG, "onClickAccessMessageListener");
+        mListener.onAccessChatMessageClicked("1");
+    }
+
+    @OnClick(R.id.accessReceiveMessageButton)
+    void onClickReceive(View v){
+        Log.d(TAG, "onClickAccessMessageListener");
+        mListener.onAccessChatMessageClicked("2");
     }
 
     public interface ChatListener {
-        void onAccessSendMessageClicked();
+        void onAccessChatMessageClicked(String mode);
     }
 
 }

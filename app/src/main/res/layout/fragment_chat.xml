@@ -16,11 +16,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="58dp" />
 
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send message"
-        android:id="@+id/accesSendMessageButton"
+        android:text="Chat"
+        android:id="@+id/accessChatMessageButton"
         android:layout_marginTop="121dp"
         android:layout_below="@+id/chatScreenTitle"
         android:layout_centerHorizontal="true" />
@@ -28,9 +29,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Messages received"
-        android:id="@+id/seeReceivedButton"
-        android:layout_below="@+id/accesSendMessageButton"
+        android:text="Sended messages"
+        android:id="@+id/accessSendMessageButton"
+        android:layout_marginTop="121dp"
+        android:layout_below="@+id/accessChatMessageButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Received messages"
+        android:id="@+id/accessReceiveMessageButton"
+        android:layout_below="@+id/accessSendMessageButton"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

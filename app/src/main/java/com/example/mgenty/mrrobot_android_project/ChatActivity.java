@@ -24,6 +24,7 @@ import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity implements ChatFragment.ChatListener, SendMessageFragment.SendListener, ReceivedMessageFragment.ReceivedListener, NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "ChatActivity";
+    public static final String EXTRA_MODE = "com.example.mgenty.mrrobot_android_project.EXTRA_MODE";
     private Firebase mFirebaseRef;
 
     @Override
@@ -122,11 +123,12 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
     }
 
 
-    public void onAccessSendMessageClicked() {
+    public void onAccessChatMessageClicked(String mode) {
         Log.d(TAG, "onAccessMessageClicked in Activity");
 
         //launch the chatActivity
         Intent intent = new Intent(ChatActivity.this, CommunicationActivity.class);
+        intent.putExtra(EXTRA_MODE, mode);
         startActivity(intent);
 
         //old chat method
