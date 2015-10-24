@@ -8,8 +8,6 @@
             android:title="Sended messages" />
         <item android:id="@+id/nav_receiveMessages" android:icon="@android:drawable/ic_menu_slideshow"
             android:title="Received messages" />
-        <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
 
     <item android:title="Account">

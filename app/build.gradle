@@ -33,6 +33,10 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.firebase:firebase-client-android:2.3.1'
     compile 'com.scottyab:aes-crypto:0.0.3'
+    compile 'com.madgag.spongycastle:core:1.51.0.0'
+    compile 'com.madgag.spongycastle:prov:1.51.0.0'
+    compile 'com.madgag.spongycastle:pkix:1.51.0.0'
+    compile 'com.madgag.spongycastle:pg:1.51.0.0'
     compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'com.firebaseui:firebase-ui:0.2.0'
 }

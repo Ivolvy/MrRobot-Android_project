@@ -26,6 +26,7 @@ import com.firebase.client.ValueEventListener;
 public class UserActivity extends AppCompatActivity implements UserFragment.UserListener, NavigationView.OnNavigationItemSelectedListener{
     private static final String TAG = "UserActivity";
     public static final String EXTRA_USER_ID = "com.example.mgenty.mrrobot_android_project.EXTRA_USER_ID";
+    public static final String EXTRA_CHAT_ACTION = "com.example.mgenty.mrrobot_android_project.EXTRA_CHAT_ACTION";
     private Firebase mFirebaseRef;
     private UserFragment userFragment;
     private String userId;
@@ -59,16 +60,6 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
         //load user information in order to fill the interface
         loadUserInformations(userId);
 
-
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -100,8 +91,8 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
                 //String userName = dataSnapshot.child("name").getValue().toString();
                 //String userEmail = dataSnapshot.child("email").getValue().toString();
 
-                String userName = user.getName();
-                String userEmail = user.getEMail();
+                String userName = user.getName().toUpperCase();
+                String userEmail = user.getEMail().toUpperCase();
 
                 //call method in UserFragment
                 userFragment.updateUserInformation(userName, userEmail);
@@ -117,7 +108,6 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menuHomeScreenItem) {
-            //login clicked
             Log.d(TAG, "onHomeScreenClicked in Activity");
 
             return true;
@@ -155,13 +145,18 @@ public class UserActivity extends AppCompatActivity implements UserFragment.User
             Log.d(TAG, "onChatClicked in SlideMenu");
             //launch the chatActivity
             Intent intent = new Intent(UserActivity.this, ChatActivity.class);
+            intent.putExtra(EXTRA_CHAT_ACTION, "chat");
             startActivity(intent);
         } else if (id == R.id.nav_sendMessages) {
-
+            //launch the chatActivity
+            Intent intent = new Intent(UserActivity.this, ChatActivity.class);
+            intent.putExtra(EXTRA_CHAT_ACTION, "send");
+            startActivity(intent);
         } else if (id == R.id.nav_receiveMessages) {
-
-        } else if (id == R.id.nav_manage) {
-
+            //launch the chatActivity
+            Intent intent = new Intent(UserActivity.this, ChatActivity.class);
+            intent.putExtra(EXTRA_CHAT_ACTION, "receive");
+            startActivity(intent);
         } else if (id == R.id.nav_userAccount) {
             onBackPressed();
         } else if (id == R.id.nav_disconnect) {

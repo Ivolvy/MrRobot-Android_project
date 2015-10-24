@@ -45,6 +45,9 @@ public class ChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
 
+        //tell to ChatActivity that chatFragment is created
+        mListener.onCreatedChat();
+
         return view;
     }
 
@@ -63,19 +66,20 @@ public class ChatFragment extends Fragment {
     }
 
     @OnClick(R.id.accessSendMessageButton)
-    void onClickSend(View v){
+    public void onClickSend(){
         Log.d(TAG, "onClickAccessMessageListener");
         mListener.onAccessChatMessageClicked("1");
     }
 
     @OnClick(R.id.accessReceiveMessageButton)
-    void onClickReceive(View v){
+    public void onClickReceive(){
         Log.d(TAG, "onClickAccessMessageListener");
         mListener.onAccessChatMessageClicked("2");
     }
 
     public interface ChatListener {
         void onAccessChatMessageClicked(String mode);
+        void onCreatedChat();
     }
 
 }

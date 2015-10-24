@@ -4,21 +4,20 @@
     <string name="email">Email address</string>
     <string name="mUser.name">Name</string>
     <string name="mUser.password">Password</string>
-    <string name="home.menu.login">Login page</string>
-    <string name="home.menu.register">Register page</string>
+    <string name="home.menu.login">Login</string>
+    <string name="home.menu.register">Register</string>
     <string name="home.menu.about">About</string>
     <string name="home.screen">HACKERS CORP</string>
     <string name="mUser.your.name">Your name</string>
     <string name="mUser.your.password">Your Password</string>
     <string name="mUser.your.email">Your Email</string>
-    <string name="mUser.screen">User Screen</string>
+    <string name="mUser.screen">YOUR INFORMATION</string>
     <string name="title_activity_chat">ChatActivity</string>
-    <string name="chat.screen.title">Chat screen</string>
-    <string name="mUser.screen.title">User screen</string>
+    <string name="chat.screen.title">COMMUNICATION</string>
+    <string name="mUser.screen.title">Account</string>
     <string name="message.to.send">Message to send</string>
     <string name="send.message">Send Message</string>
 
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_navigation">NavigationActivity</string>
 
@@ -26,5 +25,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="slide_menu_subtitle">Be invisible</string>
+    <string name="slide_menu_subtitle">BE INVISIBLE</string>
 </resources>

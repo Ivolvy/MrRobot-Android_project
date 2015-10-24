@@ -17,6 +17,7 @@ import com.example.mgenty.mrrobot_android_project.chat.ReceivedMessageFragment;
 import com.example.mgenty.mrrobot_android_project.chat.SendMessageFragment;
 import com.example.mgenty.mrrobot_android_project.communication.CommunicationActivity;
 import com.example.mgenty.mrrobot_android_project.user.User;
+import com.example.mgenty.mrrobot_android_project.user.UserFragment;
 import com.firebase.client.Firebase;
 
 import java.util.HashMap;
@@ -26,6 +27,8 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
     private static final String TAG = "ChatActivity";
     public static final String EXTRA_MODE = "com.example.mgenty.mrrobot_android_project.EXTRA_MODE";
     private Firebase mFirebaseRef;
+    private ChatFragment chatFragment;
+    private String chatAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +42,19 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //load UserFragment
+        chatFragment = new ChatFragment();
+
         if(savedInstanceState == null){
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.chatContainer, new ChatFragment())
+                    .add(R.id.chatContainer, chatFragment)
                     .commit();
         }
+
+        Intent intent = getIntent();
+        chatAction = intent.getStringExtra(UserActivity.EXTRA_CHAT_ACTION);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -69,8 +79,8 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menuHomeScreenItem) {
-            //login clicked
             Log.d(TAG, "onHomeScreenClicked in Activity");
+            onBackPressed(); //return to user activity
 
             return true;
         } else if (item.getItemId() == R.id.menuHomeAboutItem) {
@@ -104,11 +114,9 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
         if (id == R.id.nav_communication) {
 
         } else if (id == R.id.nav_sendMessages) {
-
+            chatFragment.onClickSend();
         } else if (id == R.id.nav_receiveMessages) {
-
-        } else if (id == R.id.nav_manage) {
-
+            chatFragment.onClickReceive();
         } else if (id == R.id.nav_userAccount) {
             onBackPressed();
         } else if (id == R.id.nav_disconnect) {
@@ -151,7 +159,13 @@ public class ChatActivity extends AppCompatActivity implements ChatFragment.Chat
         messages.put("receiver", "lui");
         messages.put("message", message);
         mFirebaseRef.child("messages").push().setValue(messages);
-
     }
 
+    public void onCreatedChat(){
+        if(chatAction.equals("send")){
+            chatFragment.onClickSend();
+        } else if(chatAction.equals("receive")){
+            chatFragment.onClickReceive();
+        }
+    }
 }
